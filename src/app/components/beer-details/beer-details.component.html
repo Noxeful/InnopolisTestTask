@@ -1,0 +1,129 @@
+<div *ngIf="!beerItem">
+  <app-custom-spinner></app-custom-spinner>
+</div>
+
+
+<div *ngIf="beerItem" class="beer-main">
+
+  <div class="header">
+    <h1>{{beerItem.name}}
+      <i [ngClass]="{'is-favorite': beerItem.isFavorite === true}" (click)="this.setToFavoriteById(beerItem.id)" class="pi pi-star-o" style="font-size: 2rem"></i>
+    </h1>
+  </div>
+
+  <p-card>
+    <div class="beer-body">
+      <div class="beer-img">
+        <img src="{{beerItem.image_url}}"/>
+      </div>
+      <div class="general-info">
+        <div>
+          <span>Name:</span>
+          {{beerItem.name}}
+        </div>
+        <div>
+          <span>Tagline:</span>
+          {{beerItem.tagline}}
+        </div>
+        <div>
+          <span>First time brewed:</span>
+          {{beerItem.first_brewed  | date: 'd MMM, y'}}
+        </div>
+        <div>
+          <span>abv:</span>
+          {{beerItem.abv}}%
+        </div>
+        <div>
+          <span>ibu:</span>
+          {{beerItem.ibu}}
+        </div>
+        <div>
+          <span>fg:</span>
+          {{beerItem.target_fg}}
+        </div>
+        <div>
+          <span>og:</span>
+          {{beerItem.target_og}}
+        </div>
+        <div>
+          <span>ebc:</span>
+          {{beerItem.ebc}}
+        </div>
+        <div>
+          <span>srm:</span>
+          {{beerItem.srm}}
+        </div>
+        <div>
+          <span>ph:</span>
+          {{beerItem.ph}}
+        </div>
+        <div>
+          <span>attenuation level:</span>
+          {{beerItem.attenuation_level}}
+        </div>
+        <div>
+          <span>Description: </span>
+          {{beerItem.description}}
+        </div>
+        <div>
+          <span>food pairing:</span>
+          {{beerItem.food_pairing}}
+        </div>
+        <div>
+          <span>contributed by:</span>
+          {{beerItem.contributed_by}}
+        </div>
+      </div>
+    </div>
+  </p-card>
+
+  <p-card>
+    <div class="brewer-method">
+      <div>
+        <h1>Ingredients</h1>
+        <h4>malt</h4>
+        <div *ngFor="let malt of beerItem.ingredients.malt">
+          {{malt.name}} - {{malt.amount.value}} {{malt.amount.unit}}
+        </div>
+        <h4>hops</h4>
+        <div *ngFor="let hops of beerItem.ingredients.hops">
+          {{hops.name}} {{hops.attribute}} at the {{hops.add}} - {{hops.amount.value}} {{hops.amount.unit}}
+        </div>
+        <h4>yeast</h4>
+        <div> {{beerItem.ingredients.yeast}}</div>
+      </div>
+      <div>
+        <h1>Brewer method</h1>
+        <h4>duration</h4>
+        <div *ngFor="let mash of beerItem.method.mash_temp">
+          {{mash.duration}} at {{mash.temp.value}}° {{mash.temp.unit}}
+        </div>
+        <h4>fermentation</h4>
+        <div>
+          {{beerItem.method.fermentation.temp.value}}° {{beerItem.method.fermentation.temp.unit}}
+        </div>
+        <h4 *ngIf="beerItem.method.twist">twist</h4>
+        <div *ngIf="beerItem.method.twist">
+          {{beerItem.method.twist}}
+        </div>
+        <h4>volumes</h4>
+        <div>
+          <div>boil volume - {{beerItem.boil_volume.value}} {{beerItem.boil_volume.unit}}</div>
+          <div>outcome volume - {{beerItem.volume.value}} {{beerItem.volume.unit}}</div>
+        </div>
+      </div>
+    </div>
+  </p-card>
+
+  <p-card>
+    <div>
+      <h1>Brewer tips</h1>
+      <span>{{beerItem.brewers_tips}}</span>
+    </div>
+  </p-card>
+
+</div>
+
+
+
+

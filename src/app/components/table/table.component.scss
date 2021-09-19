@@ -1,0 +1,21 @@
+td {
+
+  img {
+    width: 20px;
+    height: 45px;
+  }
+}
+
+.is-favorite {
+  color: #007BFF;
+}
+
+.table-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  div {
+    font-size: 26px;
+  }
+}

@@ -1,0 +1,132 @@
+<p-table #dt [value]="$beerData | async" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
+         [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+         [paginator]="true"
+         [filterDelay]="0" [globalFilterFields]="['name']">
+
+<!--  header + search-->
+  <ng-template pTemplate="caption">
+    <div class="table-header">
+      <div>List of Beers</div>
+      <span class="p-input-icon-right">
+                <i class="pi pi-search"></i>
+                <input class="p-inputtext p-component p-element" pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Enter a name" />
+      </span>
+    </div>
+  </ng-template>
+
+<!--  table-headers-->
+  <ng-template pTemplate="header">
+
+    <tr>
+      <th pSortableColumn="favorite" style="width: 3rem">
+      </th>
+
+      <th pSortableColumn="name" [style]="{'width':'20rem'}">
+        <div class="p-d-flex p-jc-between p-ai-center">
+          Name
+          <p-sortIcon field="name"></p-sortIcon>
+          <p-columnFilter type="text" field="name" display="menu" class="p-ml-auto"></p-columnFilter>
+        </div>
+      </th>
+
+      <th pSortableColumn="abv">
+        <div class="p-d-flex p-jc-between p-ai-center">
+          ABV
+          <p-sortIcon field="abv"></p-sortIcon>
+          <p-columnFilter type="text" field="abv" display="menu" class="p-ml-auto"></p-columnFilter>
+        </div>
+      </th>
+
+      <th pSortableColumn="ibu">
+        <div class="p-d-flex p-jc-between p-ai-center">
+          IBU
+          <p-sortIcon field="ibu"></p-sortIcon>
+          <p-columnFilter type="text" field="ibu" display="menu" class="p-ml-auto"></p-columnFilter>
+        </div>
+      </th>
+
+      <th pSortableColumn="ph">
+        <div class="p-d-flex p-jc-between p-ai-center">
+          PH
+          <p-sortIcon field="ph"></p-sortIcon>
+          <p-columnFilter type="text" field="ph" display="menu" class="p-ml-auto"></p-columnFilter>
+        </div>
+      </th>
+
+      <th pSortableColumn="ebc">
+        <div class="p-d-flex p-jc-between p-ai-center">
+          EBC
+          <p-sortIcon field="ebc"></p-sortIcon>
+          <p-columnFilter type="text" field="ebc" display="menu" class="p-ml-auto"></p-columnFilter>
+        </div>
+      </th>
+
+      <th pSortableColumn="srm">
+        <div class="p-d-flex p-jc-between p-ai-center">
+          SRM
+          <p-sortIcon field="srm"></p-sortIcon>
+          <p-columnFilter type="text" field="srm" display="menu" class="p-ml-auto"></p-columnFilter>
+        </div>
+      </th>
+
+      <th pSortableColumn="pic">
+        <div class="p-d-flex p-jc-between p-ai-center">
+          Preview
+        </div>
+      </th>
+    </tr>
+  </ng-template>
+
+<!--  table-body-->
+  <ng-template pTemplate="body" let-beer>
+    <tr class="p-selectable-row" (click)="navigateToDetailsById(beer)">
+
+      <td [ngClass]="{'is-favorite': beer.isFavorite === true}" (click)="setToFavoriteById(beer)">
+        <i class="pi pi-star-o" style="font-size: 1rem"></i>
+      </td>
+
+      <td>
+        <span class="p-column-title">Name</span>
+        {{beer.name}}
+      </td>
+
+      <td>
+        <span class="p-column-title">ABV</span>
+        {{beer.abv}}%
+      </td>
+
+      <td>
+        <span class="p-column-title">IBU</span>
+        {{beer.ibu}}
+      </td>
+
+      <td>
+        <span class="p-column-title">PH</span>
+        {{beer.ph}}
+      </td>
+
+      <td>
+        <span class="p-column-title">EBC</span>
+        {{beer.ebc}}
+      </td>
+
+      <td>
+        <span class="p-column-title">SRM</span>
+        {{beer.srm}}
+      </td>
+
+      <td>
+        <span class="p-column-title">Picture</span>
+        <img src="{{beer.image_url}}" />
+      </td>
+
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <div *ngIf="isLoading">
+        <app-custom-spinner></app-custom-spinner>
+      </div>
+    </tr>
+  </ng-template>
+</p-table>
