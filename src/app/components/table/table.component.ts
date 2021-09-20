@@ -15,7 +15,6 @@ import {LocalStorageService} from "../../services/local-storage.service";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent implements OnInit {
-  public data: BeerData[] = [];
   public $beerData: Observable<BeerData[]>;
   public isLoading: Boolean = false;
 
